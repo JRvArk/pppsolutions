@@ -17,7 +17,6 @@ new-%:
 	$(eval _DIR := solutions/ch$(_CH)/exc$(_EXC))
 	@mkdir -p $(_DIR)/src
 	@[ -f $(_DIR)/makefile ] || cp .templates/makefile $(_DIR)/makefile
-	@[ -f $(_DIR)/src/compile_flags.txt ] || cp .templates/compile_flags.txt $(_DIR)/src/compile_flags.txt
 	@[ -f $(_DIR)/src/main.cpp ] || printf '#include <iostream>\n\nint main()\n{\n\n}\n' > $(_DIR)/src/main.cpp
 	@echo "Scaffolded $(_DIR)"
 
