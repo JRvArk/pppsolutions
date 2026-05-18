@@ -1,0 +1,22 @@
+repos:
+  - repo: https://github.com/pre-commit/mirrors-clang-format
+    rev: v22.1.5
+    hooks:
+      - id: clang-format
+        types: [c++]
+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        types: [markdown]
+        args: [--prose-wrap, always, --print-width, "78"]
+
+  - repo: local
+    hooks:
+      - id: clang-tidy
+        name: clang-tidy
+        entry: clang-tidy
+        language: system
+        types: [c++]
+        args: [--quiet, --fix, --extra-arg=-std=c++20, --extra-arg=--sysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX15.5.sdk]
