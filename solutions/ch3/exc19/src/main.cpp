@@ -46,8 +46,29 @@ int main()
         }
     }
 
-    for (size_t idx = 0; idx < names.size(); ++idx)
+    while (true)
     {
-        std::cout << names[idx] << ": " << scores[idx] << '\n';
+        std::cout << "Enter a name to look up (or NoName to exit): ";
+        std::string query;
+        std::cin >> query;
+        if (query == "NoName")
+        {
+            break;
+        }
+
+        bool found = false;
+        for (size_t i = 0; i < names.size(); ++i)
+        {
+            if (names[i] == query)
+            {
+                std::cout << query << ": " << scores[i] << '\n';
+                found = true;
+                break;
+            }
+        }
+        if (!found)
+        {
+            std::cout << "name not found\n";
+        }
     }
 }

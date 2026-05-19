@@ -46,8 +46,41 @@ int main()
         }
     }
 
-    for (size_t idx = 0; idx < names.size(); ++idx)
+    for (size_t i = 0; i < names.size(); ++i)
     {
-        std::cout << names[idx] << ": " << scores[idx] << '\n';
+        std::cout << names[i] << ": " << scores[i] << '\n';
+    }
+
+    while (true)
+    {
+        try
+        {
+            std::cout << "Enter a score to look up (or -1 to exit): ";
+            int query = 0;
+            std::cin >> query;
+            if (query == -1)
+            {
+                break;
+            }
+
+            bool found = false;
+            for (size_t i = 0; i < scores.size(); ++i)
+            {
+                if (scores[i] == query)
+                {
+                    std::cout << names[i] << '\n';
+                    found = true;
+                }
+            }
+            if (!found)
+            {
+                std::cout << "score not found\n";
+            }
+        }
+        catch (const std::ios_base::failure&)
+        {
+            std::cerr << "Input error: expected an integer.\n";
+            return 1;
+        }
     }
 }
