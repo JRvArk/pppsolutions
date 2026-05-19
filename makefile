@@ -1,4 +1,4 @@
-EXERCISE_DIRS := $(shell find . -mindepth 2 -name 'makefile' -not -path './.git/*' | xargs dirname)
+EXERCISE_DIRS := $(shell find . -mindepth 2 -name 'makefile' -not -path './.git/*' -not -path './.templates/*' | xargs dirname)
 
 .PHONY: all clean fmt $(EXERCISE_DIRS)
 
