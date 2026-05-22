@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  build-and-lint:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install LLVM
+        run: brew install llvm
+
+      - name: Add LLVM to PATH
+        run: echo "/opt/homebrew/opt/llvm/bin" >> $GITHUB_PATH
+
+      - name: Build all exercises
+        run: make all
+
+      - name: Check formatting
+        run: |
+          find solutions -name '*.cpp' -o -name '*.h' | \
+          xargs clang-format --dry-run --Werror
+
+      - name: Run clang-tidy
+        run: |
+          SDK=$(xcrun --show-sdk-path)
+          TARGET=$(clang++ -dumpmachine)
+          find solutions -name '*.cpp' | xargs clang-tidy \
+            --quiet \
+            --extra-arg-before=-xc++ \
+            --extra-arg=-std=c++20 \
+            --extra-arg=-target --extra-arg=$TARGET \
+            --extra-arg=-isysroot --extra-arg=$SDK
