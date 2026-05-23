@@ -3,5 +3,5 @@
 main
 *.o
 *.d
-.vscode/
 node_modules/
+.claude/
