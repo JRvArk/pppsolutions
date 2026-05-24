@@ -34,12 +34,13 @@ lives under `solutions/chN/excM/`.
 ```bash
 brew install llvm
 pip install pre-commit
-pre-commit install
+make setup
 ```
 
 ## Build
 
 ```bash
+make setup        # install git hooks and pre-commit
 make all          # build every exercise
 make 9.4          # build solutions/ch9/exc4
 make run-9.4      # build and run solutions/ch9/exc4
