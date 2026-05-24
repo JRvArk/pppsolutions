@@ -1,11 +1,16 @@
 EXERCISE_DIRS := $(shell find . -mindepth 2 -name 'makefile' -not -path './.git/*' -not -path './.templates/*' | xargs dirname)
 
-.PHONY: all clean fmt $(EXERCISE_DIRS) new-% rm-%
+.PHONY: all clean fmt setup $(EXERCISE_DIRS) new-% rm-%
 
 all: $(EXERCISE_DIRS)
 
 $(EXERCISE_DIRS):
 	$(MAKE) -C $@
+
+setup:
+	cp .githooks/post-checkout .git/hooks/post-checkout
+	chmod +x .git/hooks/post-checkout
+	pre-commit install
 
 fmt:
 	npx prettier --prose-wrap always --print-width 78 --write README.md

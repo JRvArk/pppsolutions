@@ -1,0 +1,2 @@
+#!/bin/sh
+git fetch origin main:main --quiet 2>/dev/null || true
